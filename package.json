@@ -1,0 +1,1 @@
+{"dependencies":{"express":"^4.19.2"},"description":"MorrowLatch AI — own website (off Polsia). Managed AI agents for practical work.","engines":{"node":">=18"},"main":"server.js","name":"morrowlatch-site","private":true,"scripts":{"start":"node server.js"},"type":"commonjs","version":"1.0.0"}
