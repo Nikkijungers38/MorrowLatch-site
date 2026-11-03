@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MorrowLatch AI — Managed AI agents for practical work</title>
+<meta name="description" content="MorrowLatch AI helps small teams and local businesses put a managed AI agent on the work that repeats — with human review and approval kept visible.">
+<style>
+  :root{
+    --navy:#0F2A43; --navy2:#123453; --ink:#1C2733; --muted:#5A6B7B;
+    --amber:#E8A33D; --amber-d:#C9851F; --paper:#FFFFFF; --wash:#F3F6F9;
+    --line:#DCE4EC; --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.55}
+  a{color:var(--navy)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  header{background:var(--navy);color:#fff}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+  .brand{font-weight:800;letter-spacing:.04em;font-size:1.05rem;color:#fff;text-decoration:none}
+  .brand span{color:var(--amber)}
+  .nav a.cta{background:var(--amber);color:#23180A;text-decoration:none;font-weight:700;padding:9px 16px;border-radius:999px;font-size:.92rem}
+  .nav a.cta:hover{background:var(--amber-d)}
+
+  .hero{background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:34px 0 54px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:start}
+  @media (max-width:880px){.hero-grid{grid-template-columns:1fr}}
+  .eyebrow{color:var(--amber);font-weight:700;letter-spacing:.14em;font-size:.78rem;text-transform:uppercase;margin-bottom:14px}
+  h1{font-size:2.35rem;line-height:1.15;font-weight:800;margin-bottom:16px}
+  .hero p.lede{color:#D7E2EE;font-size:1.08rem;margin-bottom:20px;max-width:34rem}
+  .hero ul.points{list-style:none;margin-bottom:8px}
+  .hero ul.points li{color:#EAF1F8;padding-left:26px;position:relative;margin-bottom:9px}
+  .hero ul.points li::before{content:"✓";position:absolute;left:0;color:var(--amber);font-weight:800}
+  .who{margin-top:22px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:var(--radius);padding:16px 18px;color:#D7E2EE;font-size:.96rem}
+  .who strong{color:#fff}
+
+  .formcard{background:#fff;color:var(--ink);border-radius:18px;padding:24px;box-shadow:0 18px 40px rgba(3,16,30,.35)}
+  .formcard h2{font-size:1.25rem;margin-bottom:4px}
+  .formcard p.sub{color:var(--muted);font-size:.93rem;margin-bottom:16px}
+  .field{margin-bottom:13px}
+  .field label{display:block;font-size:.8rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--navy);margin-bottom:5px}
+  .field input,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;font-size:.97rem;background:#FBFDFE}
+  .field textarea{min-height:76px;resize:vertical}
+  .field input:focus,.field textarea:focus{outline:2px solid var(--amber);border-color:transparent}
+  .submit{width:100%;background:var(--amber);color:#23180A;border:none;border-radius:999px;padding:14px;font:inherit;font-weight:800;font-size:1rem;cursor:pointer}
+  .submit:hover{background:var(--amber-d)}
+  .submit:disabled{opacity:.6;cursor:wait}
+  .fineprint{color:var(--muted);font-size:.82rem;margin-top:11px;text-align:center}
+  .form-error{background:#FDECEC;color:#8F1D1D;border-radius:10px;padding:10px 12px;font-size:.92rem;margin-bottom:13px;display:none}
+  .form-done{display:none;text-align:center;padding:26px 6px}
+  .form-done .check{font-size:2.2rem;color:var(--amber-d)}
+  .form-done h3{margin:8px 0 6px}
+  .form-done p{color:var(--muted);font-size:.95rem}
+
+  section{padding:56px 0}
+  section.alt{background:var(--wash)}
+  h2.sec{font-size:1.7rem;font-weight:800;color:var(--navy);margin-bottom:8px}
+  p.secsub{color:var(--muted);max-width:44rem;margin-bottom:30px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media (max-width:880px){.cards{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .card .num{color:var(--amber-d);font-weight:800;font-size:.85rem;letter-spacing:.1em}
+  .card h3{margin:8px 0 7px;font-size:1.08rem;color:var(--navy)}
+  .card p{color:var(--muted);font-size:.95rem}
+
+  .pkg{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+  .pkg.rec{border:2px solid var(--amber);position:relative}
+  .pkg .tag{align-self:flex-start;background:var(--wash);color:var(--navy);font-size:.72rem;font-weight:800;letter-spacing:.1em;padding:4px 9px;border-radius:999px;text-transform:uppercase}
+  .pkg.rec .tag{background:var(--amber);color:#23180A}
+  .pkg h3{margin:12px 0 6px;font-size:1.15rem;color:var(--navy)}
+  .pkg p{color:var(--muted);font-size:.95rem;flex:1}
+  .pkg .price{font-size:1.9rem;font-weight:800;color:var(--navy);margin:16px 0 2px}
+  .pkg .per{color:var(--muted);font-size:.9rem;margin-bottom:16px}
+  .pkg a.btn{text-align:center;text-decoration:none;background:var(--navy);color:#fff;font-weight:700;padding:12px;border-radius:999px}
+  .pkg.rec a.btn{background:var(--amber);color:#23180A}
+  .pkg a.btn:hover{opacity:.9}
+  .honest{margin-top:22px;color:var(--muted);font-size:.92rem;text-align:center}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:step}
+  @media (max-width:880px){.steps{grid-template-columns:1fr}}
+  .step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .step h3{color:var(--navy);font-size:1.05rem;margin-bottom:7px}
+  .step p{color:var(--muted);font-size:.95rem}
+
+  footer{background:var(--navy);color:#B9C9D9;padding:30px 0;font-size:.9rem}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  footer a{color:#E8A33D;text-decoration:none}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/">MORROWLATCH <span>AI</span></a>
+    <a class="cta" href="#inquire">Ask about setup</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Managed AI agents for practical work</div>
+      <h1>A managed agent, scoped to the work you actually do.</h1>
+      <p class="lede">MorrowLatch AI helps small teams explore, define, and manage agent-supported workflows — with human review and approval kept visible at every step.</p>
+      <ul class="points">
+        <li>One repeatable workflow, carefully scoped first</li>
+        <li>You approve what matters before anything goes out</li>
+        <li>A written handoff of the agreed work and next steps</li>
+      </ul>
+      <div class="who">
+        <strong>Built for small teams and local businesses</strong> — shops, offices, and service businesses that lose hours every week to the same inquiries, follow-ups, and paperwork, and don't have time to become AI experts.
+      </div>
+    </div>
+
+    <div class="formcard" id="inquire">
+      <h2>Tell us what you'd like help with</h2>
+      <p class="sub">A plain-language description is enough. A person reviews every request. You do not need to know how AI or your tools work.</p>
+      <div class="form-error" id="formError"></div>
+      <form id="inquiryForm" novalidate>
+        <div class="field">
+          <label for="fName">Your name</label>
+          <input id="fName" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="fEmail">Email</label>
+          <input id="fEmail" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="fBusiness">Business name</label>
+          <input id="fBusiness" name="business" type="text" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="fTask">What work repeats in your business?</label>
+          <textarea id="fTask" name="task" placeholder="For example: answering the same customer questions, chasing follow-ups, re-typing orders…" required></textarea>
+        </div>
+        <div class="field">
+          <label for="fResult">What result would you like?</label>
+          <input id="fResult" name="result" type="text" placeholder="More customers, fewer missed calls, hours back each week…">
+        </div>
+        <div class="field">
+          <label for="fTools">What tools do you use today?</label>
+          <input id="fTools" name="tools" type="text" placeholder="Email, social media, a spreadsheet, a booking app…">
+        </div>
+        <div class="field">
+          <label for="fApproval">Anything that must always get your approval first?</label>
+          <input id="fApproval" name="approval" type="text" placeholder="Prices, refunds, anything customer-facing…">
+        </div>
+        <button class="submit" id="submitBtn" type="submit">Send my request</button>
+        <div class="fineprint">Every request is saved for human review. Please don't include passwords or API keys.</div>
+      </form>
+      <div class="form-done" id="formDone">
+        <div class="check">✓</div>
+        <h3>Request received</h3>
+        <p>Thank you — your request is saved and will be reviewed by a person. If there's a useful next step, we'll follow up at the email you gave.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2 class="sec">Start with the work</h2>
+    <p class="secsub">A package is only helpful when the workflow, boundaries, and approval points are clear enough to discuss. So the useful questions come first.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="num">01</div>
+        <h3>What work repeats?</h3>
+        <p>We start with the task as it happens today, including the handoffs and context around it.</p>
+      </div>
+      <div class="card">
+        <div class="num">02</div>
+        <h3>Where should people stay involved?</h3>
+        <p>Approval points and boundaries are part of the service brief, not an afterthought.</p>
+      </div>
+      <div class="card">
+        <div class="num">03</div>
+        <h3>Which scope fits?</h3>
+        <p>Choose a defined package, or keep the conversation open when the right shape is not known yet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2 class="sec">Packages</h2>
+    <p class="secsub">One workflow, clear boundaries. Pick the scope that matches the work — or ask above and we'll help you decide.</p>
+    <div class="cards">
+      <div class="pkg">
+        <span class="tag">Package</span>
+        <h3>Managed Agent Foundation</h3>
+        <p>For one repeatable workflow that needs a careful first scope.</p>
+        <div class="price">$1,200</div>
+        <div class="per">per month</div>
+        <a class="btn" href="#inquire">Ask about this scope</a>
+      </div>
+      <div class="pkg rec">
+        <span class="tag">Recommended</span>
+        <h3>Managed Agent Operations</h3>
+        <p>The recommended starting point for a core workflow plus its nearby handoffs.</p>
+        <div class="price">$2,400</div>
+        <div class="per">per month</div>
+        <a class="btn" href="#inquire">Ask about this scope</a>
+      </div>
+      <div class="pkg">
+        <span class="tag">Package</span>
+        <h3>Managed Agent Studio</h3>
+        <p>For teams bringing several workflows into one managed service conversation.</p>
+        <div class="price">$4,800</div>
+        <div class="per">per month</div>
+        <a class="btn" href="#inquire">Ask about this scope</a>
+      </div>
+    </div>
+    <p class="honest">No package claims a guaranteed result. The first decision is whether the scope is a sensible fit.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="sec">How it works</h2>
+    <p class="secsub">Three steps, in the open, before anything is automated.</p>
+    <div class="steps">
+      <div class="step">
+        <h3>1 — Identify a useful task</h3>
+        <p>We map a repeatable business task as it happens today and decide whether an agent could help.</p>
+      </div>
+      <div class="step">
+        <h3>2 — Document human review</h3>
+        <p>Together we mark the points where a person must check, approve, or stop the work before it continues.</p>
+      </div>
+      <div class="step">
+        <h3>3 — Hand off the agreed next steps</h3>
+        <p>You receive a written handoff covering the agreed work, tool-connection details, approval points, setup notes, and what happens next.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 MorrowLatch AI — Managed AI agents for practical work.</div>
+    <div><a href="#inquire">Ask about setup</a></div>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById('inquiryForm');
+  const errorBox = document.getElementById('formError');
+  const doneBox = document.getElementById('formDone');
+  const submitBtn = document.getElementById('submitBtn');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorBox.style.display = 'none';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    const payload = {
+      name: document.getElementById('fName').value,
+      email: document.getElementById('fEmail').value,
+      business: document.getElementById('fBusiness').value,
+      task: document.getElementById('fTask').value,
+      result: document.getElementById('fResult').value,
+      tools: document.getElementById('fTools').value,
+      approval: document.getElementById('fApproval').value,
+    };
+    try {
+      const res = await fetch('/api/inquire', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || 'Something went wrong — please try again.');
+      form.style.display = 'none';
+      doneBox.style.display = 'block';
+    } catch (err) {
+      errorBox.textContent = err.message;
+      errorBox.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send my request';
+    }
+  });
+</script>
+</body>
+</html>

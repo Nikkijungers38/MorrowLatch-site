@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MorrowLatch AI — Admin dashboard</title>
+<style>
+  :root{
+    --navy:#0F2A43; --ink:#1C2733; --muted:#5A6B7B; --amber:#E8A33D; --amber-d:#C9851F;
+    --wash:#F3F6F9; --line:#DCE4EC; --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--wash);line-height:1.5}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+  header{background:var(--navy);color:#fff;padding:16px 0}
+  header .wrap{display:flex;justify-content:space-between;align-items:center}
+  .brand{font-weight:800;letter-spacing:.04em}
+  .brand span{color:var(--amber)}
+  .signout{background:none;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:999px;padding:7px 14px;font:inherit;font-size:.88rem;cursor:pointer;display:none}
+  main{padding:30px 0 60px}
+  h1{font-size:1.5rem;color:var(--navy);margin-bottom:4px}
+  .sub{color:var(--muted);margin-bottom:24px;font-size:.95rem}
+
+  .logincard{max-width:420px;margin:60px auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+  .logincard h1{font-size:1.3rem;margin-bottom:6px}
+  .logincard p{color:var(--muted);font-size:.93rem;margin-bottom:18px}
+  .logincard label{display:block;font-size:.8rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--navy);margin-bottom:5px}
+  .logincard input{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;margin-bottom:14px}
+  .logincard button{width:100%;background:var(--amber);color:#23180A;border:none;border-radius:999px;padding:13px;font:inherit;font-weight:800;cursor:pointer}
+  .err{background:#FDECEC;color:#8F1D1D;border-radius:10px;padding:10px 12px;font-size:.92rem;margin-bottom:14px;display:none}
+
+  .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px}
+  @media (max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;text-align:center}
+  .stat .n{font-size:1.8rem;font-weight:800;color:var(--navy)}
+  .stat .l{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .stat.new .n{color:var(--amber-d)}
+
+  .inq{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:14px}
+  .inq-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline;margin-bottom:10px}
+  .inq-head .who{font-weight:800;color:var(--navy)}
+  .inq-head .meta{color:var(--muted);font-size:.86rem}
+  .inq dl{display:grid;grid-template-columns:170px 1fr;gap:4px 14px;font-size:.94rem}
+  @media (max-width:640px){.inq dl{grid-template-columns:1fr}}
+  .inq dt{font-weight:700;color:var(--navy);font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;padding-top:2px}
+  .inq dd{color:var(--ink);white-space:pre-wrap}
+  .inq-actions{margin-top:14px;display:flex;align-items:center;gap:10px}
+  .inq-actions label{font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .inq-actions select{border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:inherit;background:#FBFDFE}
+  .badge{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--wash);color:var(--navy)}
+  .badge.New{background:#FCEFD8;color:#8A5A0B}
+  .badge.Closed{background:#E4E9EF;color:var(--muted)}
+  .empty{background:#fff;border:1px dashed var(--line);border-radius:var(--radius);padding:34px;text-align:center;color:var(--muted)}
+  #dashboard{display:none}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">MORROWLATCH <span>AI</span> — ADMIN</div>
+    <button class="signout" id="signOutBtn">Sign out</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="logincard" id="loginCard">
+    <h1>Owner sign in</h1>
+    <p>Your MorrowLatch AI dashboard — inquiries from your site land here.</p>
+    <div class="err" id="loginErr"></div>
+    <form id="loginForm">
+      <label for="pw">Password</label>
+      <input id="pw" type="password" autocomplete="current-password" required>
+      <button type="submit">Sign in</button>
+    </form>
+  </div>
+
+  <div id="dashboard">
+    <h1>Overview</h1>
+    <p class="sub">Inquiries from your website. New ones also arrive by email once email is switched on.</p>
+    <div class="stats">
+      <div class="stat"><div class="n" id="stTotal">–</div><div class="l">Total</div></div>
+      <div class="stat new"><div class="n" id="stNew">–</div><div class="l">New</div></div>
+      <div class="stat"><div class="n" id="stReviewing">–</div><div class="l">Reviewing</div></div>
+      <div class="stat"><div class="n" id="stFollowUp">–</div><div class="l">Follow up</div></div>
+      <div class="stat"><div class="n" id="stClosed">–</div><div class="l">Closed</div></div>
+    </div>
+    <div id="inquiryList"></div>
+  </div>
+</main>
+
+<script>
+  const loginCard = document.getElementById('loginCard');
+  const dashboard = document.getElementById('dashboard');
+  const signOutBtn = document.getElementById('signOutBtn');
+  const loginErr = document.getElementById('loginErr');
+  const listEl = document.getElementById('inquiryList');
+  const STATUSES = ['New', 'Reviewing', 'Follow up', 'Closed'];
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  async function loadDashboard() {
+    const res = await fetch('/api/admin/inquiries');
+    if (res.status === 401) { showLogin(); return; }
+    const data = await res.json();
+    if (!data.ok) { showLogin(); return; }
+    loginCard.style.display = 'none';
+    dashboard.style.display = 'block';
+    signOutBtn.style.display = 'inline-block';
+    document.getElementById('stTotal').textContent = data.counts.total;
+    document.getElementById('stNew').textContent = data.counts.New;
+    document.getElementById('stReviewing').textContent = data.counts.Reviewing;
+    document.getElementById('stFollowUp').textContent = data.counts['Follow up'];
+    document.getElementById('stClosed').textContent = data.counts.Closed;
+    if (!data.inquiries.length) {
+      listEl.innerHTML = '<div class="empty">No inquiries yet. When someone sends the form on your site, it shows up here.</div>';
+      return;
+    }
+    listEl.innerHTML = data.inquiries.map((inq) => {
+      const when = new Date(inq.createdAt).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' });
+      const opts = STATUSES.map((s) => `<option value="${s}"${s === inq.status ? ' selected' : ''}>${s}</option>`).join('');
+      const row = (label, val) => val ? `<dt>${label}</dt><dd>${esc(val)}</dd>` : '';
+      return `<div class="inq">
+        <div class="inq-head">
+          <div><span class="who">${esc(inq.name)}</span> · <a href="mailto:${esc(inq.email)}">${esc(inq.email)}</a> <span class="badge ${esc(inq.status)}">${esc(inq.status)}</span></div>
+          <div class="meta">${esc(when)}</div>
+        </div>
+        <dl>
+          ${row('Business', inq.business)}
+          ${row('What work repeats', inq.task)}
+          ${row('Desired result', inq.result)}
+          ${row('Current tools', inq.tools)}
+          ${row('Approval needs', inq.approval)}
+        </dl>
+        <div class="inq-actions">
+          <label for="st-${inq.id}">Status</label>
+          <select id="st-${inq.id}" data-id="${inq.id}">${opts}</select>
+        </div>
+      </div>`;
+    }).join('');
+    listEl.querySelectorAll('select[data-id]').forEach((sel) => {
+      sel.addEventListener('change', async () => {
+        await fetch('/api/admin/status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: sel.dataset.id, status: sel.value }),
+        });
+        loadDashboard();
+      });
+    });
+  }
+
+  function showLogin() {
+    loginCard.style.display = 'block';
+    dashboard.style.display = 'none';
+    signOutBtn.style.display = 'none';
+  }
+
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    loginErr.style.display = 'none';
+    const res = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: document.getElementById('pw').value }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) {
+      loginErr.textContent = data.error || 'Sign-in failed.';
+      loginErr.style.display = 'block';
+      return;
+    }
+    loadDashboard();
+  });
+
+  signOutBtn.addEventListener('click', async () => {
+    await fetch('/api/admin/logout', { method: 'POST' });
+    showLogin();
+  });
+
+  loadDashboard();
+</script>
+</body>
+</html>
