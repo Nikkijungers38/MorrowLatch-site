@@ -24,6 +24,23 @@
   .brand span{color:var(--amber)}
   .nav a.cta{background:var(--amber);color:#23180A;text-decoration:none;font-weight:700;padding:9px 16px;border-radius:999px;font-size:.92rem}
   .nav a.cta:hover{background:var(--amber-d)}
+  .nav .links{display:flex;gap:18px;align-items:center}
+  .nav .links a{color:#D7E2EE;text-decoration:none;font-weight:600;font-size:.92rem;white-space:nowrap}
+  .nav .links a:hover{color:var(--amber)}
+  @media (max-width:760px){.nav{flex-wrap:wrap;gap:8px}.nav .links{order:3;width:100%;overflow-x:auto;padding:4px 0 2px}}
+  .sidenav{position:fixed;right:18px;top:50%;transform:translateY(-50%);background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 28px rgba(15,42,67,.14);padding:10px 6px;display:none;flex-direction:column;gap:2px;z-index:20}
+  @media (min-width:1280px){.sidenav{display:flex}}
+  .sidenav a{color:var(--navy);text-decoration:none;font-size:.84rem;font-weight:700;padding:7px 12px;border-radius:9px;white-space:nowrap}
+  .sidenav a:hover{background:var(--wash);color:var(--amber-d)}
+  .sidenav .side-title{font-size:.68rem;font-weight:800;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;padding:4px 12px 2px}
+  .pkg-note{display:none;background:#FCEFD8;color:#8A5A0B;border-radius:10px;padding:10px 12px;font-size:.92rem;font-weight:700;margin-bottom:13px}
+  .field select{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;font-size:.97rem;background:#FBFDFE}
+  .faq-item{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:12px}
+  .faq-item h3{color:var(--navy);font-size:1.02rem;margin-bottom:6px}
+  .faq-item p{color:var(--muted);font-size:.95rem}
+  .gloss{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  @media (max-width:880px){.gloss{grid-template-columns:1fr}}
+  .gloss .card h3{color:var(--amber-d)}
 
   .hero{background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:34px 0 54px}
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:start}
@@ -75,6 +92,13 @@
   .pkg .price{font-size:1.9rem;font-weight:800;color:var(--navy);margin:16px 0 2px}
   .pkg .per{color:var(--muted);font-size:.9rem;margin-bottom:16px}
   .pkg a.btn{text-align:center;text-decoration:none;background:var(--navy);color:#fff;font-weight:700;padding:12px;border-radius:999px}
+  .pkg a.details{align-self:center;text-decoration:none;color:var(--amber-d);font-weight:700;font-size:.93rem;margin-bottom:12px}
+  .pkg a.details:hover{text-decoration:underline}
+  .flow{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .flow h3{color:var(--navy);font-size:1.05rem;margin-bottom:10px}
+  .flow ol{margin-left:18px;color:var(--muted);font-size:.94rem}
+  .flow ol li{margin-bottom:6px}
+  .flow ol li strong{color:var(--ink)}
   .pkg.rec a.btn{background:var(--amber);color:#23180A}
   .pkg a.btn:hover{opacity:.9}
   .honest{margin-top:22px;color:var(--muted);font-size:.92rem;text-align:center}
@@ -95,9 +119,24 @@
 <header>
   <div class="wrap nav">
     <a class="brand" href="/"><img src="/logo-icon.png" alt="MorrowLatch AI logo">MORROWLATCH <span>AI</span></a>
+    <nav class="links">
+      <a href="#packages">Packages</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+      <a href="#glossary">Glossary</a>
+    </nav>
     <a class="cta" href="#inquire">Ask about setup</a>
   </div>
 </header>
+
+<aside class="sidenav">
+  <div class="side-title">On this page</div>
+  <a href="#inquire">Ask about setup</a>
+  <a href="#packages">Packages</a>
+  <a href="#how">How it works</a>
+  <a href="#faq">FAQ</a>
+  <a href="#glossary">Glossary</a>
+</aside>
 
 <div class="hero">
   <div class="wrap hero-grid">
@@ -118,6 +157,7 @@
     <div class="formcard" id="inquire">
       <h2>Tell us what you'd like help with</h2>
       <p class="sub">A plain-language description is enough. A person reviews every request. You do not need to know how AI or your tools work.</p>
+      <div class="pkg-note" id="pkgNote"></div>
       <div class="form-error" id="formError"></div>
       <form id="inquiryForm" novalidate>
         <div class="field">
@@ -127,6 +167,15 @@
         <div class="field">
           <label for="fEmail">Email</label>
           <input id="fEmail" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="fPackage">Package you're asking about</label>
+          <select id="fPackage" name="package">
+            <option value="">Not sure yet — help me decide</option>
+            <option value="Managed Agent Foundation — $1,200/month">Managed Agent Foundation — $1,200/month</option>
+            <option value="Managed Agent Operations — $2,400/month">Managed Agent Operations — $2,400/month</option>
+            <option value="Managed Agent Studio — $4,800/month">Managed Agent Studio — $4,800/month</option>
+          </select>
         </div>
         <div class="field">
           <label for="fBusiness">Business name</label>
@@ -184,7 +233,53 @@
   </div>
 </section>
 
-<section class="alt">
+
+<section>
+  <div class="wrap">
+    <h2 class="sec">What this can look like</h2>
+    <p class="secsub">Four everyday workflows, the way they'd actually run. Yours would be mapped to your business, your tools, and your approval points.</p>
+    <div class="cards">
+      <div class="flow">
+        <h3>A new customer inquiry</h3>
+        <ol>
+          <li>A customer asks about <strong>hours, services, or booking</strong></li>
+          <li>The agent answers from <strong>your approved information</strong></li>
+          <li>It collects <strong>name, contact, and what they need</strong></li>
+          <li>Anything about <strong>price waits for you</strong></li>
+        </ol>
+      </div>
+      <div class="flow">
+        <h3>An estimate follow-up</h3>
+        <ol>
+          <li>You send an estimate; <strong>the clock starts</strong></li>
+          <li>The agent follows up on <strong>the schedule you approved</strong></li>
+          <li>Basic questions get answered; <strong>discounts wait for you</strong></li>
+          <li>Ready customers get <strong>booked, not lost</strong></li>
+        </ol>
+      </div>
+      <div class="flow">
+        <h3>Appointment booking</h3>
+        <ol>
+          <li>The agent offers <strong>the times you make available</strong></li>
+          <li>The customer picks; <strong>confirmation goes out</strong></li>
+          <li>A <strong>reminder follows</strong> before the appointment</li>
+          <li>Changes and exceptions <strong>land with you, organized</strong></li>
+        </ol>
+      </div>
+      <div class="flow">
+        <h3>Routine paperwork intake</h3>
+        <ol>
+          <li>The agent asks for <strong>the same information, every time</strong></li>
+          <li>Answers arrive <strong>complete and in one place</strong></li>
+          <li>Missing pieces get <strong>one polite chase</strong></li>
+          <li>You review a <strong>prepared summary</strong>, not a messy inbox</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="packages">
   <div class="wrap">
     <h2 class="sec">Packages</h2>
     <p class="secsub">One workflow, clear boundaries. Pick the scope that matches the work — or ask above and we'll help you decide.</p>
@@ -195,7 +290,8 @@
         <p>For one repeatable workflow that needs a careful first scope.</p>
         <div class="price">$1,200</div>
         <div class="per">per month</div>
-        <a class="btn" href="#inquire">Ask about this scope</a>
+        <a class="details" href="/packages/foundation.html">See full details &amp; benefits →</a>
+        <a class="btn pkg-btn" href="#inquire" data-package="Managed Agent Foundation — $1,200/month">Ask about Foundation</a>
       </div>
       <div class="pkg rec">
         <span class="tag">Recommended</span>
@@ -203,7 +299,8 @@
         <p>The recommended starting point for a core workflow plus its nearby handoffs.</p>
         <div class="price">$2,400</div>
         <div class="per">per month</div>
-        <a class="btn" href="#inquire">Ask about this scope</a>
+        <a class="details" href="/packages/operations.html">See full details &amp; benefits →</a>
+        <a class="btn pkg-btn" href="#inquire" data-package="Managed Agent Operations — $2,400/month">Ask about Operations</a>
       </div>
       <div class="pkg">
         <span class="tag">Package</span>
@@ -211,14 +308,15 @@
         <p>For teams bringing several workflows into one managed service conversation.</p>
         <div class="price">$4,800</div>
         <div class="per">per month</div>
-        <a class="btn" href="#inquire">Ask about this scope</a>
+        <a class="details" href="/packages/studio.html">See full details &amp; benefits →</a>
+        <a class="btn pkg-btn" href="#inquire" data-package="Managed Agent Studio — $4,800/month">Ask about Studio</a>
       </div>
     </div>
     <p class="honest">No package claims a guaranteed result. The first decision is whether the scope is a sensible fit.</p>
   </div>
 </section>
 
-<section>
+<section id="how">
   <div class="wrap">
     <h2 class="sec">How it works</h2>
     <p class="secsub">Three steps, in the open, before anything is automated.</p>
@@ -239,6 +337,66 @@
   </div>
 </section>
 
+<section class="alt" id="faq">
+  <div class="wrap">
+    <h2 class="sec">Frequently asked questions</h2>
+    <p class="secsub">Plain answers, no jargon. Anything else — ask in the form at the top and a person will reply.</p>
+    <div class="faq-item">
+      <h3>Do I need to know how AI works?</h3>
+      <p>No. You describe the work in plain language — the same questions, follow-ups, or paperwork that eat your week. Working out the technical side is our job, not yours.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What happens after I send the form?</h3>
+      <p>A person reviews every request. If there's a sensible next step, you'll get a follow-up at the email you gave, with the agreed scope and approval points in writing before anything is set up.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Will an agent send things to my customers without my say-so?</h3>
+      <p>Only within the boundaries you approve first. Prices, refunds, and anything else you name always wait for your approval — those points are written into the plan before work starts, not added later.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How much does it cost?</h3>
+      <p>Packages are $1,200, $2,400, or $4,800 per month depending on scope. No package guarantees a result — the first decision is whether the work is a sensible fit at all, and there's no charge for asking.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What kind of work fits best?</h3>
+      <p>Work that repeats: answering the same customer questions, booking and confirming appointments, following up on estimates and leads, and gathering routine paperwork. If it happens every week in roughly the same way, it's worth a conversation.</p>
+    </div>
+  </div>
+</section>
+
+<section id="glossary">
+  <div class="wrap">
+    <h2 class="sec">Glossary — the words on this page, in plain English</h2>
+    <p class="secsub">If a word here ever sounds like jargon, this is what we actually mean by it.</p>
+    <div class="gloss">
+      <div class="card">
+        <h3>Managed agent</h3>
+        <p>An AI helper set up and looked after for you, to do a defined piece of your business's repeating work. "Managed" means a person scopes it, watches it, and stays responsible for it.</p>
+      </div>
+      <div class="card">
+        <h3>Workflow</h3>
+        <p>One job that repeats, from start to finish — for example, "a new inquiry comes in, gets answered, gets booked, gets a reminder." We always start with just one.</p>
+      </div>
+      <div class="card">
+        <h3>Approval point</h3>
+        <p>A step where the work stops and waits for your yes before continuing — like sending a price, a refund, or a message you're not comfortable automating.</p>
+      </div>
+      <div class="card">
+        <h3>Scope</h3>
+        <p>Exactly what the agent will and won't do, written down. If it isn't in the scope, it doesn't happen.</p>
+      </div>
+      <div class="card">
+        <h3>Handoff</h3>
+        <p>The written summary you receive: the agreed work, the approval points, the setup notes, and what happens next — so nothing lives only in someone's head.</p>
+      </div>
+      <div class="card">
+        <h3>Human review</h3>
+        <p>A person checking the work at the points that matter, instead of software running on its own. Every inquiry sent from this site gets it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <div><img src="/logo-icon.png" alt="" style="width:30px;height:30px;border-radius:7px;vertical-align:middle;margin-right:8px">© 2026 MorrowLatch AI — Managed AI agents for practical work.</div>
@@ -251,12 +409,45 @@
   const errorBox = document.getElementById('formError');
   const doneBox = document.getElementById('formDone');
   const submitBtn = document.getElementById('submitBtn');
+  const pkgNote = document.getElementById('pkgNote');
+  const pkgSelect = document.getElementById('fPackage');
+  const slugToPackage = {
+    foundation: 'Managed Agent Foundation — $1,200/month',
+    operations: 'Managed Agent Operations — $2,400/month',
+    studio: 'Managed Agent Studio — $4,800/month',
+  };
+  const wanted = new URLSearchParams(window.location.search).get('package');
+  if (wanted && slugToPackage[wanted]) {
+    pkgSelect.value = slugToPackage[wanted];
+    pkgNote.textContent = 'You picked: ' + slugToPackage[wanted] + ' — it will be sent with your request. Change it in the dropdown if you meant a different one.';
+    pkgNote.style.display = 'block';
+  }
+  document.querySelectorAll('.pkg-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const pkg = btn.getAttribute('data-package');
+      if (!pkg) return;
+      pkgSelect.value = pkg;
+      pkgNote.textContent = 'You picked: ' + pkg + ' — it will be sent with your request. Change it in the dropdown if you meant a different one.';
+      pkgNote.style.display = 'block';
+      setTimeout(() => document.getElementById('fName').focus({ preventScroll: true }), 600);
+    });
+  });
+  pkgSelect.addEventListener('change', () => {
+    if (pkgSelect.value) {
+      pkgNote.textContent = 'You picked: ' + pkgSelect.value + ' — it will be sent with your request.';
+      pkgNote.style.display = 'block';
+    } else {
+      pkgNote.style.display = 'none';
+    }
+  });
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     errorBox.style.display = 'none';
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending…';
     const payload = {
+      package: document.getElementById('fPackage').value,
       name: document.getElementById('fName').value,
       email: document.getElementById('fEmail').value,
       business: document.getElementById('fBusiness').value,
@@ -278,6 +469,7 @@
     } catch (err) {
       errorBox.textContent = err.message;
       errorBox.style.display = 'block';
+      errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
       submitBtn.disabled = false;
       submitBtn.textContent = 'Send my request';
     }
