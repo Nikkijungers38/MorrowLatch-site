@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MorrowLatch AI — Admin dashboard</title>
+<link rel="icon" type="image/png" href="/logo-icon.png">
 <style>
   :root{
     --navy:#0F2A43; --ink:#1C2733; --muted:#5A6B7B; --amber:#E8A33D; --amber-d:#C9851F;
@@ -14,7 +15,8 @@
   .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
   header{background:var(--navy);color:#fff;padding:16px 0}
   header .wrap{display:flex;justify-content:space-between;align-items:center}
-  .brand{font-weight:800;letter-spacing:.04em}
+  .brand{font-weight:800;letter-spacing:.04em;display:flex;align-items:center;gap:10px}
+  .brand img{width:32px;height:32px;border-radius:8px;display:block}
   .brand span{color:var(--amber)}
   .signout{background:none;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:999px;padding:7px 14px;font:inherit;font-size:.88rem;cursor:pointer;display:none}
   main{padding:30px 0 60px}
@@ -58,7 +60,7 @@
 
 <header>
   <div class="wrap">
-    <div class="brand">MORROWLATCH <span>AI</span> — ADMIN</div>
+    <div class="brand"><img src="/logo-icon.png" alt="MorrowLatch AI logo">MORROWLATCH <span>AI</span> — ADMIN</div>
     <button class="signout" id="signOutBtn">Sign out</button>
   </div>
 </header>
