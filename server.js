@@ -68,6 +68,7 @@ async function emailOwner(inq) {
         reply_to: inq.email,
         subject: `New MorrowLatch inquiry — ${inq.name}${inq.business ? ` (${inq.business})` : ''}`,
         text: [
+          `Package: ${inq.package || 'Not sure yet'}`,
           `Name: ${inq.name}`,
           `Email: ${inq.email}`,
           `Business: ${inq.business || '—'}`,
@@ -115,6 +116,7 @@ app.post('/api/inquire', async (req, res) => {
   }
   const inq = {
     id: crypto.randomUUID(),
+    package: String(b.package || '').trim(),
     name,
     email,
     business: String(b.business || '').trim(),
