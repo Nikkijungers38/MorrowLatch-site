@@ -51,6 +51,21 @@
   .example ol{margin-left:20px}
   .example li{margin-bottom:8px;color:#D7E2EE}
   .example li strong{color:#fff}
+  .faq-item{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:12px}
+  .faq-item h3{color:var(--navy);font-size:1.02rem;margin-bottom:6px}
+  .faq-item p{color:var(--muted);font-size:.95rem}
+
+  .askform{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;max-width:640px}
+  .askform label{display:block;font-size:.8rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--navy);margin:0 0 5px}
+  .askform input,.askform textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;font-size:.97rem;background:#FBFDFE;margin-bottom:13px}
+  .askform textarea{min-height:90px;resize:vertical}
+  .askform button{width:100%;background:var(--amber);color:#23180A;border:none;border-radius:999px;padding:13px;font:inherit;font-weight:800;cursor:pointer}
+  .askform button:disabled{opacity:.6}
+  .ask-error{display:none;background:#FDECEC;color:#8F1D1D;border-radius:10px;padding:10px 12px;font-size:.92rem;margin-bottom:13px}
+  .ask-done{display:none;text-align:center;padding:16px 4px}
+  .ask-done .check{font-size:2rem;color:var(--amber-d)}
+  .means{background:#fff;border:2px solid var(--amber);border-radius:var(--radius);padding:24px 26px}
+  .means p{color:var(--ink);font-size:1.02rem}
   footer{background:var(--navy);color:#B9C9D9;padding:30px 0;font-size:.9rem}
   footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   footer a{color:#E8A33D;text-decoration:none}
@@ -65,6 +80,7 @@
       <a href="/#how">How it works</a>
       <a href="/#faq">FAQ</a>
       <a href="/#glossary">Glossary</a>
+      <a href="/buy.html">Buy a package</a>
     </nav>
     <a class="cta" href="/?package=studio#inquire">Ask about this package</a>
   </div>
@@ -79,6 +95,7 @@
     <div class="per">per month</div>
     <div class="cta-row">
       <a class="btn" href="/?package=studio#inquire">Ask about Studio</a>
+      <a class="btn" href="https://buy.stripe.com/eVq9AT2phfa3bv7a498Ra0m" style="background:#fff;color:var(--navy)">Subscribe now — Studio</a>
       <a class="btn ghost" href="/#packages">Compare all packages</a>
     </div>
   </div>
@@ -154,6 +171,77 @@
     </div>
   </div>
 </section>
+
+<section>
+  <div class="wrap">
+    <h2 class="sec">What Studio actually means</h2>
+    <p class="secsub">No jargon — what you're really buying with this package.</p>
+    <div class="means"><p>Studio means this: instead of fixing one workflow at a time, we map <strong>several of your repeating workflows together</strong> — inquiries, bookings, follow-ups, routine paperwork — and manage them under one plan, one set of approval rules, and one written map. They launch in priority order, highest-value first, so the biggest time-drains are covered before the small stuff.</p></div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2 class="sec">Questions people ask about Studio</h2>
+    <p class="secsub">The things owners usually want to know before this package makes sense.</p>
+    <div class="faq-item"><h3>How many workflows do I get?</h3><p>The set is agreed with you and written into your scope before setup — Studio is 'several,' defined on paper, not 'unlimited.' If a new workflow comes up later, it's added by agreement, not by surprise charges.</p></div>
+    <div class="faq-item"><h3>Do all the workflows start at once?</h3><p>No — and that's deliberate. They're mapped together but launched in the priority order we agree: the workflow costing you the most time or lost business goes first, gets proven, then the next one follows.</p></div>
+    <div class="faq-item"><h3>Who do I talk to when something needs changing?</h3><p>One place. Every workflow lives in the same written map and the same managed service, so a change to your approval rules or your information updates the whole front office consistently — not one tool at a time.</p></div>
+    <div class="faq-item"><h3>Is Studio too much for a small business?</h3><p>It can be. If your repeating work is really one chain, Operations is the honest fit and costs half as much. Studio is for when the repeating work genuinely spans several areas of the business at once.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="sec">Ask a question about Studio</h2>
+    <p class="secsub">Still not sure what this package would do in <em>your</em> business? Ask here. Your question arrives labeled with this package, and a person replies at your email.</p>
+    <form class="askform" id="askForm">
+      <div class="ask-error" id="askError"></div>
+      <label for="aName">Your name</label>
+      <input id="aName" type="text" autocomplete="name" required>
+      <label for="aEmail">Email</label>
+      <input id="aEmail" type="email" autocomplete="email" required>
+      <label for="aQuestion">Your question about Studio</label>
+      <textarea id="aQuestion" placeholder="For example: would this work for a business like mine? What would it handle first?" required></textarea>
+      <button type="submit" id="askBtn">Ask about Studio</button>
+      <div class="ask-done" id="askDone">
+        <div class="check">✓</div>
+        <h3>Question sent</h3>
+        <p>Thank you — your question about Studio is in. A person will reply at the email you gave.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  const askForm = document.getElementById('askForm');
+  askForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const err = document.getElementById('askError');
+    const btn = document.getElementById('askBtn');
+    err.style.display = 'none';
+    btn.disabled = true; btn.textContent = 'Sending…';
+    const payload = {
+      package: 'Managed Agent Studio — $4,800/month',
+      name: document.getElementById('aName').value,
+      email: document.getElementById('aEmail').value,
+      business: '',
+      task: 'Question about Studio: ' + document.getElementById('aQuestion').value,
+      result: '', tools: '', approval: ''
+    };
+    try {
+      const res = await fetch('/api/inquire', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || 'Something went wrong — please try again.');
+      askForm.querySelectorAll('input, textarea, button, label').forEach(el => el.style.display = 'none');
+      document.getElementById('askDone').style.display = 'block';
+    } catch (ex) {
+      err.textContent = ex.message;
+      err.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Ask about Studio';
+    }
+  });
+</script>
 
 <footer>
   <div class="wrap">

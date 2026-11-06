@@ -51,6 +51,21 @@
   .example ol{margin-left:20px}
   .example li{margin-bottom:8px;color:#D7E2EE}
   .example li strong{color:#fff}
+  .faq-item{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:12px}
+  .faq-item h3{color:var(--navy);font-size:1.02rem;margin-bottom:6px}
+  .faq-item p{color:var(--muted);font-size:.95rem}
+
+  .askform{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;max-width:640px}
+  .askform label{display:block;font-size:.8rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--navy);margin:0 0 5px}
+  .askform input,.askform textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;font-size:.97rem;background:#FBFDFE;margin-bottom:13px}
+  .askform textarea{min-height:90px;resize:vertical}
+  .askform button{width:100%;background:var(--amber);color:#23180A;border:none;border-radius:999px;padding:13px;font:inherit;font-weight:800;cursor:pointer}
+  .askform button:disabled{opacity:.6}
+  .ask-error{display:none;background:#FDECEC;color:#8F1D1D;border-radius:10px;padding:10px 12px;font-size:.92rem;margin-bottom:13px}
+  .ask-done{display:none;text-align:center;padding:16px 4px}
+  .ask-done .check{font-size:2rem;color:var(--amber-d)}
+  .means{background:#fff;border:2px solid var(--amber);border-radius:var(--radius);padding:24px 26px}
+  .means p{color:var(--ink);font-size:1.02rem}
   footer{background:var(--navy);color:#B9C9D9;padding:30px 0;font-size:.9rem}
   footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   footer a{color:#E8A33D;text-decoration:none}
@@ -65,6 +80,7 @@
       <a href="/#how">How it works</a>
       <a href="/#faq">FAQ</a>
       <a href="/#glossary">Glossary</a>
+      <a href="/buy.html">Buy a package</a>
     </nav>
     <a class="cta" href="/?package=foundation#inquire">Ask about this package</a>
   </div>
@@ -79,6 +95,7 @@
     <div class="per">per month</div>
     <div class="cta-row">
       <a class="btn" href="/?package=foundation#inquire">Ask about Foundation</a>
+      <a class="btn" href="https://buy.stripe.com/00w5kDfc3ge7gPr1xD8Ra0k" style="background:#fff;color:var(--navy)">Subscribe now — Foundation</a>
       <a class="btn ghost" href="/#packages">Compare all packages</a>
     </div>
   </div>
@@ -154,6 +171,77 @@
     </div>
   </div>
 </section>
+
+<section>
+  <div class="wrap">
+    <h2 class="sec">What Foundation actually means</h2>
+    <p class="secsub">No jargon — what you're really buying with this package.</p>
+    <div class="means"><p>Foundation means this: you pick <strong>one job that repeats</strong> in your business — the same customer questions, the same intake, the same first follow-up — and we set up a managed AI agent to handle that one job, and only that job. It works from information you approve, it stops at the lines you draw, and everything it does is written down. It's the smallest, clearest way to start: one workflow, one monthly price, and proof it helps before you spend another dollar.</p></div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2 class="sec">Questions people ask about Foundation</h2>
+    <p class="secsub">The things owners usually want to know before this package makes sense.</p>
+    <div class="faq-item"><h3>What exactly will the agent do all day?</h3><p>The one workflow we scoped together — for example, answering your most common customer questions, collecting the details you need from each new inquiry, and flagging anything about price for you. It doesn't wander into other jobs; if it isn't in the written scope, it doesn't happen.</p></div>
+    <div class="faq-item"><h3>Does it talk to my customers directly?</h3><p>Within the workflow and channels agreed in your scope, yes — using your approved information and wording. Anything unusual, sensitive, or on your approval list is routed to you instead of answered.</p></div>
+    <div class="faq-item"><h3>What if my one workflow turns out to be bigger than we thought?</h3><p>Then we say so honestly during scoping. If the job really has extra steps attached — like booking and reminders after the inquiry — that's a sign Operations fits better, and we'll tell you why before you pay for either.</p></div>
+    <div class="faq-item"><h3>Can I move up later?</h3><p>Yes. Foundation is designed as the starting step. If the first workflow earns its keep, Operations adds the handoffs around it, and everything already documented carries over.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="sec">Ask a question about Foundation</h2>
+    <p class="secsub">Still not sure what this package would do in <em>your</em> business? Ask here. Your question arrives labeled with this package, and a person replies at your email.</p>
+    <form class="askform" id="askForm">
+      <div class="ask-error" id="askError"></div>
+      <label for="aName">Your name</label>
+      <input id="aName" type="text" autocomplete="name" required>
+      <label for="aEmail">Email</label>
+      <input id="aEmail" type="email" autocomplete="email" required>
+      <label for="aQuestion">Your question about Foundation</label>
+      <textarea id="aQuestion" placeholder="For example: would this work for a business like mine? What would it handle first?" required></textarea>
+      <button type="submit" id="askBtn">Ask about Foundation</button>
+      <div class="ask-done" id="askDone">
+        <div class="check">✓</div>
+        <h3>Question sent</h3>
+        <p>Thank you — your question about Foundation is in. A person will reply at the email you gave.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  const askForm = document.getElementById('askForm');
+  askForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const err = document.getElementById('askError');
+    const btn = document.getElementById('askBtn');
+    err.style.display = 'none';
+    btn.disabled = true; btn.textContent = 'Sending…';
+    const payload = {
+      package: 'Managed Agent Foundation — $1,200/month',
+      name: document.getElementById('aName').value,
+      email: document.getElementById('aEmail').value,
+      business: '',
+      task: 'Question about Foundation: ' + document.getElementById('aQuestion').value,
+      result: '', tools: '', approval: ''
+    };
+    try {
+      const res = await fetch('/api/inquire', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || 'Something went wrong — please try again.');
+      askForm.querySelectorAll('input, textarea, button, label').forEach(el => el.style.display = 'none');
+      document.getElementById('askDone').style.display = 'block';
+    } catch (ex) {
+      err.textContent = ex.message;
+      err.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Ask about Foundation';
+    }
+  });
+</script>
 
 <footer>
   <div class="wrap">
