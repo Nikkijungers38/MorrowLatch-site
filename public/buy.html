@@ -44,6 +44,11 @@
   .pkg a.details{align-self:center;text-decoration:none;color:var(--amber-d);font-weight:700;font-size:.93rem;margin-top:12px}
   .pkg a.details:hover{text-decoration:underline}
   .note{color:var(--muted);font-size:.92rem;text-align:center;margin-top:24px}
+  .pilot-panel{background:#FFF7E8;border:1px solid #F0D3A0;border-radius:var(--radius);padding:24px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;margin-bottom:22px}
+  .pilot-panel h2{color:var(--navy);font-size:1.35rem;margin-bottom:6px}
+  .pilot-panel p{color:var(--muted);font-size:.96rem;max-width:44rem}
+  .pilot-panel a{background:var(--navy);color:#fff;text-decoration:none;font-weight:800;padding:13px 20px;border-radius:999px;white-space:nowrap;text-align:center}
+  @media (max-width:760px){.pilot-panel{grid-template-columns:1fr}.pilot-panel a{white-space:normal}}
   .thanks-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:36px;max-width:640px;margin:0 auto;text-align:center}
   .thanks-card .check{font-size:2.6rem;color:var(--amber-d)}
   .thanks-card h2{color:var(--navy);margin:10px 0 8px}
@@ -63,6 +68,7 @@
     <a class="brand" href="/"><img src="/logo-icon.png" alt="MorrowLatch AI logo">MORROWLATCH <span>AI</span></a>
     <nav class="links">
       <a href="/#packages">Packages</a>
+      <a href="/#pilot">Free pilot</a>
       <a href="/#how">How it works</a>
       <a href="/#faq">FAQ</a>
       <a href="/#glossary">Glossary</a>
@@ -76,11 +82,18 @@
   <div class="wrap">
     <div class="eyebrow">MorrowLatch AI — Packages</div>
     <h1>Pick your package. Start today.</h1>
-    <p class="lede">Every package is a monthly subscription for a managed AI agent, scoped to your business, with your approval points in writing. Subscribe here, and we'll reach out personally to schedule your scoping conversation. Want the full story on a package first? Each one has a details page linked under its button.</p>
+    <p class="lede">Every package is a monthly subscription for a managed AI agent, scoped to your business, with your approval points in writing. Subscribe here, and we'll reach out personally to schedule your scoping conversation. Want the full story on a package first? Each one has a details page linked under its button. Not ready to subscribe? Start with the free 3-day pilot below.</p>
   </div>
 </div>
 <section>
   <div class="wrap">
+    <div class="pilot-panel">
+      <div>
+        <h2>Start with a free 3-day pilot</h2>
+        <p>Try one small, low-risk workflow in draft or test mode before subscribing. No card and no automatic charge. Setup comes first — your 3 days start when the pilot is ready — and you get a short report before deciding.</p>
+      </div>
+      <a href="/?package=pilot#inquire">Apply for the free pilot</a>
+    </div>
     <div class="cards">
       <div class="pkg" id="foundation">
         <span class="tag">Package</span>
@@ -128,6 +141,7 @@
         <a class="details" href="/packages/studio.html">Full details &amp; benefits →</a>
       </div>
     </div>
+    <p class="note">The free pilot is separate from a subscription: applying does not collect a card, create a subscription, or charge you when the pilot ends.</p>
     <p class="note">Checkout is handled securely by Stripe — the name on the payment page is Jungers Business, our business account. Subscriptions renew monthly until cancelled. No package guarantees customers or sales; the scoping conversation right after you subscribe is where the fit gets confirmed, and if a package genuinely isn't right for your work, we'll say so.</p>
     <p class="note">Rather talk first? <a href="/#inquire" style="color:var(--amber-d);font-weight:700">Send an inquiry instead</a> — a person reviews every one.</p>
   </div>

@@ -34,6 +34,9 @@
   .sidenav a:hover{background:var(--wash);color:var(--amber-d)}
   .sidenav .side-title{font-size:.68rem;font-weight:800;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;padding:4px 12px 2px}
   .pkg-note{display:none;background:#FCEFD8;color:#8A5A0B;border-radius:10px;padding:10px 12px;font-size:.92rem;font-weight:700;margin-bottom:13px}
+  .pilot-cta{display:inline-block;background:var(--navy);color:#fff;text-decoration:none;font-weight:800;padding:13px 22px;border-radius:999px}
+  .pilot-cta:hover{background:var(--navy2)}
+  .pilot-note{margin-top:18px;color:var(--muted);font-size:.92rem;text-align:center}
   .field select{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;font-size:.97rem;background:#FBFDFE}
   .faq-item{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:12px}
   .faq-item h3{color:var(--navy);font-size:1.02rem;margin-bottom:6px}
@@ -121,6 +124,7 @@
     <a class="brand" href="/"><img src="/logo-icon.png" alt="MorrowLatch AI logo">MORROWLATCH <span>AI</span></a>
     <nav class="links">
       <a href="#packages">Packages</a>
+      <a href="#pilot">Free pilot</a>
       <a href="#how">How it works</a>
       <a href="#faq">FAQ</a>
       <a href="#glossary">Glossary</a>
@@ -134,6 +138,7 @@
   <div class="side-title">On this page</div>
   <a href="#inquire">Ask about setup</a>
   <a href="#packages">Packages</a>
+  <a href="#pilot">Free 3-day pilot</a>
   <a href="#how">How it works</a>
   <a href="#faq">FAQ</a>
   <a href="#glossary">Glossary</a>
@@ -149,6 +154,7 @@
         <li>One repeatable workflow, carefully scoped first</li>
         <li>You approve what matters before anything goes out</li>
         <li>A written handoff of the agreed work and next steps</li>
+        <li>Start with a free 3-day pilot — no card and no automatic charge</li>
       </ul>
       <div class="who">
         <strong>Built for small teams and local businesses</strong> — shops, offices, and service businesses that lose hours every week to the same inquiries, follow-ups, and paperwork, and don't have time to become AI experts.
@@ -170,9 +176,10 @@
           <input id="fEmail" name="email" type="email" autocomplete="email" required>
         </div>
         <div class="field">
-          <label for="fPackage">Package you're asking about</label>
+          <label for="fPackage">Package or pilot you're asking about</label>
           <select id="fPackage" name="package">
             <option value="">Not sure yet — help me decide</option>
+            <option value="Free 3-Day Pilot — $0, one workflow">Free 3-Day Pilot — $0, one workflow</option>
             <option value="Managed Agent Foundation — $1,200/month">Managed Agent Foundation — $1,200/month</option>
             <option value="Managed Agent Operations — $2,400/month">Managed Agent Operations — $2,400/month</option>
             <option value="Managed Agent Studio — $4,800/month">Managed Agent Studio — $4,800/month</option>
@@ -209,6 +216,30 @@
     </div>
   </div>
 </div>
+
+
+<section class="alt" id="pilot">
+  <div class="wrap">
+    <h2 class="sec">Try it first: a free 3-day pilot</h2>
+    <p class="secsub">See one real workflow in a limited test before choosing a monthly package. No card is collected, and there is no automatic charge when the pilot ends.</p>
+    <div class="steps">
+      <div class="step">
+        <h3>1 — Apply and agree the scope</h3>
+        <p>Pick one small, low-risk workflow that repeats. We review the fit and write down the boundaries and approval points before anything is prepared.</p>
+      </div>
+      <div class="step">
+        <h3>2 — Setup does not use your 3 days</h3>
+        <p>We prepare the limited test version first. Your 3 pilot days start only when it is ready for you to see and use — not while it is still being set up.</p>
+      </div>
+      <div class="step">
+        <h3>3 — Review the result, then decide</h3>
+        <p>The pilot runs in draft or test mode, and customer-facing work stays behind your approval. At the end you get a short report on what it handled, where people stayed involved, and the time it could save. Continue only if you choose a package.</p>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:26px"><a class="pilot-cta pkg-btn" href="#inquire" data-package="Free 3-Day Pilot — $0, one workflow">Apply for the free pilot</a></p>
+    <p class="pilot-note">Pilot places are reviewed individually and are not guaranteed. A pilot is a limited test of one workflow — not three days of a full Foundation, Operations, or Studio package.</p>
+  </div>
+</section>
 
 <section>
   <div class="wrap">
@@ -359,6 +390,10 @@
       <p>Packages are $1,200, $2,400, or $4,800 per month depending on scope. No package guarantees a result — the first decision is whether the work is a sensible fit at all, and there's no charge for asking.</p>
     </div>
     <div class="faq-item">
+      <h3>Can I try MorrowLatch before subscribing?</h3>
+      <p>Yes. Apply for a free 3-day pilot of one small, low-risk workflow. No card is collected and nothing charges automatically. Setup happens first; the 3 days begin when the test is ready. At the end, you receive a short report and decide whether a package makes sense.</p>
+    </div>
+    <div class="faq-item">
       <h3>What kind of work fits best?</h3>
       <p>Work that repeats: answering the same customer questions, booking and confirming appointments, following up on estimates and leads, and gathering routine paperwork. If it happens every week in roughly the same way, it's worth a conversation.</p>
     </div>
@@ -391,6 +426,10 @@
         <p>The written summary you receive: the agreed work, the approval points, the setup notes, and what happens next — so nothing lives only in someone's head.</p>
       </div>
       <div class="card">
+        <h3>Pilot</h3>
+        <p>A short, limited test of one workflow before a subscription. MorrowLatch's free pilot lasts 3 days after setup is ready, uses agreed approval points, and never turns into a paid subscription automatically.</p>
+      </div>
+      <div class="card">
         <h3>Human review</h3>
         <p>A person checking the work at the points that matter, instead of software running on its own. Every inquiry sent from this site gets it.</p>
       </div>
@@ -413,6 +452,7 @@
   const pkgNote = document.getElementById('pkgNote');
   const pkgSelect = document.getElementById('fPackage');
   const slugToPackage = {
+    pilot: 'Free 3-Day Pilot — $0, one workflow',
     foundation: 'Managed Agent Foundation — $1,200/month',
     operations: 'Managed Agent Operations — $2,400/month',
     studio: 'Managed Agent Studio — $4,800/month',
@@ -466,6 +506,10 @@
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error || 'Something went wrong — please try again.');
       form.style.display = 'none';
+      if (payload.package.startsWith('Free 3-Day Pilot')) {
+        doneBox.querySelector('h3').textContent = 'Pilot application received';
+        doneBox.querySelector('p').textContent = 'Thank you — your pilot application is saved and will be reviewed by a person. No card was collected and nothing will charge automatically. If the workflow is a fit, we will follow up about scope and approval points.';
+      }
       doneBox.style.display = 'block';
     } catch (err) {
       errorBox.textContent = err.message;
